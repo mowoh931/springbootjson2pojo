@@ -1,0 +1,20 @@
+{
+  "name": "Foo",
+  "area": "Java",
+  "author": "John H",
+  "id": 7890,
+  "topics": [
+    "java",
+    "kotlin",
+    "spring",
+    "docker",
+    "kafka"
+  ],
+  "address": {
+    "city": "New City",
+    "country": "Some Country",
+    "state": "Some State",
+    "street": "Some Street",
+    "zip": "123456"
+  }
+}
