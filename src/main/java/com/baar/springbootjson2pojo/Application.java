@@ -1,5 +1,7 @@
 package com.baar.springbootjson2pojo;
 
+import com.baar.springbootjson2pojo.model.Teacher;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.codemodel.JCodeModel;
 import org.jsonschema2pojo.*;
 import org.jsonschema2pojo.rules.RuleFactory;
@@ -7,11 +9,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
+@RestController
+@RequestMapping
 @SpringBootApplication
 public class Application {
     private static final
@@ -24,7 +33,7 @@ public class Application {
      * @param outputJavaClassDirectory The output java class directory.
      * @param packageName              The package name.
      * @param javaClassName            The java class name.
-     * @throws IOException
+     * @throws IOException             The io exception
      */
     public static void convertJsonToJavaClass(URL inputJsonUrl, File outputJavaClassDirectory, String packageName, String javaClassName)
             throws IOException {
@@ -75,5 +84,16 @@ public class Application {
         logger.info("========================================");
     }
 
+    @GetMapping(value = "/")
+    public Teacher getTeacher() throws IOException, URISyntaxException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        URI uri = new URI("src/main/resources/data/inputJsonUrl.json");
+        File file = new File(uri.getPath());
+
+        // Convert JSON string from file to Object
+        return mapper.readValue(file, Teacher.class);
+    }
 
 }
